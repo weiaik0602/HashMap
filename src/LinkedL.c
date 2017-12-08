@@ -1,12 +1,13 @@
+#include "LinkedL.h"
 #include <stdio.h>
-#include "linkedlist.h"
-#include "student.h"
-#include <string.h>
+
 void listInit(LinkedList *list) {
   list->head = NULL;
   list->tail = NULL;
   list->len = 0;
 }
+
+
 void listInitV2(LinkedList *list,Item *item){
     // Implement your code here...
     list->head=item;
@@ -16,8 +17,8 @@ void listInitV2(LinkedList *list,Item *item){
 }
 
 void listAdd(LinkedList *list,Item *item){
+    Item *previous,*current;
     // Implement your code here...
-    //
     if(list->len==0){
     list->head=item;
     list->tail=item;
@@ -25,18 +26,31 @@ void listAdd(LinkedList *list,Item *item){
     else{
 		list->tail->next=item;
 		list->tail=item;
-
     }
     list->len +=1;
     item->next=NULL;
 }
 
+Item *listSearch(LinkedList *list,void * data,Compare compareFunction){
+  Item *previous,*current;
+  previous=NULL;
+  current=list->head;
+  if(current!=NULL){
+    while(compareFunction(current->data,data)!=0){
+      previous=current;
+		  current=current->next;
+      if(compareFunction(current->data,data)==0)
+        break;
+    }
+    }
+		else
+			  return NULL;
 
-
-
+    return current;
+}
 void listRemoveHead(LinkedList *list){
   if(list->head == NULL){        //if the list is empty, return NUll
-    return NULL;
+    list= NULL;
   }
   else{
     if(list->head == list->tail){
@@ -46,27 +60,21 @@ void listRemoveHead(LinkedList *list){
     else{
     list->head = list->head->next;
     list->len--;
-  }
+    }
   }
 }
-
-
-
-
-void listRemoveByName(LinkedList *list, char* name)
+void listRemove(LinkedList *list, void* data,Compare compareFunction)
 {
   Item *previous,*current;
   int x;
-  //Student *student;
-
   //for the 1st node, there is no previous,and current is the list->head
-
   previous=NULL;
   current=list->head;
+  /*finding the node that we want, if not match with the name, the previous /
+  pointer become current code and the current pointer point to the next node/
+   until we find it*/
 
-
-  /*finding the node that we want, if not match with the name, the previous pointer become current code and the current pointer point to the next node until we find it*/
-   while(strcmp(((Student*)current->data)->name, name)!=0 )
+   while(compareFunction(current->data,data)!=0)
    {
 		previous=current;
 		current=current->next;
@@ -76,7 +84,7 @@ void listRemoveByName(LinkedList *list, char* name)
    if(current==NULL)
    {
 	   //no data matched until last node
-	   return NULL;
+	   current=NULL;
    }
    else
    {
@@ -100,4 +108,9 @@ void listRemoveByName(LinkedList *list, char* name)
 		   list->len--;
 	   }
    }
+}
+
+void createItem(Item *item,void * data,Item* next){
+  item->data=data;
+  item->next=next;
 }

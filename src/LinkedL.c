@@ -1,5 +1,8 @@
 #include "LinkedL.h"
 #include <stdio.h>
+#include <stdint.h>
+
+
 
 void listInit(LinkedList *list) {
   list->head = NULL;
@@ -31,22 +34,28 @@ void listAdd(LinkedList *list,Item *item){
     item->next=NULL;
 }
 
-Item *listSearch(LinkedList *list,void * data,Compare compareFunction){
+Item *listSearch(LinkedList *list,uint32_t key,Compare compareFunction){
   Item *previous,*current;
   previous=NULL;
   current=list->head;
-  if(current!=NULL){
-    while(compareFunction(current->data,data)!=0){
+  if(list->len!=0){
+    while(compareFunction((void*)key,(void*)&(((Data *)(current->data)))->key)!=0){
       previous=current;
 		  current=current->next;
-      if(compareFunction(current->data,data)==0)
+      if(current==NULL)
         break;
     }
-    }
-		else
-			  return NULL;
-
     return current;
+  }
+    else
+      return NULL;
+}
+void *listSearch2(LinkedList *list,uint32_t key,Compare compareFunc){
+	Item *temp;
+	for(temp = list->head; temp!=NULL;temp = temp->next){
+		if(compareFunc(&key,temp->data)!=0)
+			return temp->data;
+    }
 }
 void listRemoveHead(LinkedList *list){
   if(list->head == NULL){        //if the list is empty, return NUll
@@ -63,7 +72,7 @@ void listRemoveHead(LinkedList *list){
     }
   }
 }
-void listRemove(LinkedList *list, void* data,Compare compareFunction)
+void listRemove(LinkedList *list,uint32_t data,Compare compareFunction)
 {
   Item *previous,*current;
   int x;
@@ -74,7 +83,7 @@ void listRemove(LinkedList *list, void* data,Compare compareFunction)
   pointer become current code and the current pointer point to the next node/
    until we find it*/
 
-   while(compareFunction(current->data,data)!=0)
+   while(compareFunction(current->data,&data)!=0)
    {
 		previous=current;
 		current=current->next;
@@ -111,6 +120,6 @@ void listRemove(LinkedList *list, void* data,Compare compareFunction)
 }
 
 void createItem(Item *item,void * data,Item* next){
-  item->data=data;
+  item->data=(Data*)data;
   item->next=next;
 }

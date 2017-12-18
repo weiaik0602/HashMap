@@ -34,29 +34,24 @@ void listAdd(LinkedList *list,Item *item){
     item->next=NULL;
 }
 
-Item *listSearch(LinkedList *list,uint32_t key,Compare compareFunction){
+void *listSearch(LinkedList *list,uint32_t key,Compare compareFunction){
   Item *previous,*current;
   previous=NULL;
   current=list->head;
   if(list->len!=0){
-    while(compareFunction((void*)key,(void*)&(((Data *)(current->data)))->key)!=0){
+    while(compareFunction((void*)&key,(void*)&(((Data *)(current->data)))->key)!=0){
       previous=current;
 		  current=current->next;
       if(current==NULL)
         break;
     }
-    return current;
+    if (current!=NULL)
+      return current->data;
   }
     else
       return NULL;
 }
-void *listSearch2(LinkedList *list,uint32_t key,Compare compareFunc){
-	Item *temp;
-	for(temp = list->head; temp!=NULL;temp = temp->next){
-		if(compareFunc(&key,temp->data)!=0)
-			return temp->data;
-    }
-}
+
 void listRemoveHead(LinkedList *list){
   if(list->head == NULL){        //if the list is empty, return NUll
     list= NULL;
@@ -82,14 +77,15 @@ void listRemove(LinkedList *list,uint32_t data,Compare compareFunction)
   /*finding the node that we want, if not match with the name, the previous /
   pointer become current code and the current pointer point to the next node/
    until we find it*/
-
-   while(compareFunction(current->data,&data)!=0)
+   if(current!=NULL){
+    while(compareFunction((void*)&data,(void*)&(((Data *)(current->data)))->key)!=0)
    {
 		previous=current;
 		current=current->next;
 		if(current==NULL)
 			break;
    }
+ }
    if(current==NULL)
    {
 	   //no data matched until last node

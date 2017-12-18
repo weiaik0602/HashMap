@@ -11,12 +11,11 @@ int integerCompare(int v1,int v2){
 
 
 
-int CompareKey(uint32_t key, Data *data){
-    if(key>data->key)
+int CompareKey(int *key, Data *data){
+    if(*key>data->key)
       return 1;
-    else if(key<data->key)
+    else if(*key<data->key)
       return -1;
     else
       return 0;
-
   }

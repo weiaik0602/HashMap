@@ -10,12 +10,12 @@
 #include "malloc.h"
 #include "intCompare.h"
 #include "LinkedL.h"
+#include "Data.h"
 
 
-void hashMapAddInteger(HashTable *table,int *data,int key);
+void hashMapAddInteger(HashTable *table,int data,int key);
 
-void hashMapSearchInteger(HashTable *table,int *data,int key);
+void hashMapSearchInteger(HashTable *table,int *intvalue,int key);
 
 void hashMapRemoveInteger(HashTable *table,int *data,int key);
-
 #endif // _HASHMAPINT_H

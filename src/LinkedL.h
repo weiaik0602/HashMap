@@ -25,7 +25,7 @@ typedef int (*Compare)(void *data, void *refdata);
 void listInit(LinkedList *list);
 void listInitV2(LinkedList *list,Item *item);
 void listAdd(LinkedList *list,Item *item);
-Item *listSearch(LinkedList *list,uint32_t data,Compare compareFunction);
+void *listSearch(LinkedList *list,uint32_t data,Compare compareFunction);
 void *listSearch2(LinkedList *list,uint32_t key,Compare compareFunc);
 void listRemoveHead(LinkedList *list);
 void listRemove(LinkedList *list,uint32_t data,Compare compareFunction);

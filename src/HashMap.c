@@ -27,14 +27,14 @@ void _hashMapAdd(HashTable *table,void *data, int index,Compare compfunc){
 void _hashMapAdd(HashTable *table,void *data,uint32_t key,int index,Compare compfunc){
   Item *newItem = (Item *)malloc(sizeof(Item));
   createItem(newItem,data, NULL);
-  Item *search=(listSearch2(&(table->list)[index],key,compfunc));
+  Data *search=(listSearch(&(table->list)[index],key,compfunc));
   if(search!=NULL)
     listRemove(&(table->list)[index],key,compfunc);
   listAdd(&(table->list)[index], newItem);
 }
 
 
-Item *_hashMapSearch(HashTable *table,uint32_t key,int index,Compare compfunc){
+void *_hashMapSearch(HashTable *table,uint32_t key,int index,Compare compfunc){
   return (listSearch(&(table->list)[index],key,compfunc));
 }
 

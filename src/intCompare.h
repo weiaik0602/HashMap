@@ -4,5 +4,5 @@
 
 int integerCompare(int v1,int v2);
 
-int CompareKey(uint32_t key, Data *data);
+int CompareKey(int *key, Data *data);
 #endif // _INTCOMPARE_H

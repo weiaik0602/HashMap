@@ -11,19 +11,6 @@ void _hashMapInit(HashTable *table,int size,int sizeFactor){
     listInit(&(table->list[i]));
 }
 
-/*
-void _hashMapAdd(HashTable *table,void *data, int index,Compare compfunc){
-  Item *newItem = (Item *)malloc(sizeof(Item));
-  createItem(newItem,data, NULL);
-  Item *search=(listSearch(&(table->list)[index],newItem,compfunc));
-  if(search!=NULL)
-    listRemove(&(table->list)[index],newItem,compfunc);
-  listAdd(&(table->list)[index], newItem);
-}*/
-
-
-
-
 void _hashMapAdd(HashTable *table,void *data,uint32_t key,int index,Compare compfunc){
   Item *newItem = (Item *)malloc(sizeof(Item));
   createItem(newItem,data, NULL);
@@ -40,7 +27,7 @@ void *_hashMapSearch(HashTable *table,uint32_t key,int index,Compare compfunc){
 
 
 
-void *_hashMapRemove(HashTable *table,uint32_t key, int index,Compare compfunc){
+void _hashMapRemove(HashTable *table,uint32_t key, int index,Compare compfunc){
  listRemove(&(table->list)[index],key,compfunc);
 }
 

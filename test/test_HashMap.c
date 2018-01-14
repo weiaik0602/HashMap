@@ -158,12 +158,5 @@ void test__hashMapAdd_given_empty_hash_table_and_value_5_david_has_added(void){
   TEST_ASSERT_NOT_NULL(hashTable.list[7].head);
   David = (Data *)(hashTable.list[7].head->data);
   TEST_ASSERT_EQUAL_STRING("David",David->value);
-  //TEST_ASSERT_EQUAL((hashTable.list)[7].head->data->value,"David");
-  //TEST_ASSERT_EQUAL((hashTable.list)[7].tail->data->value,"David");
-/*
 
-  data = (Data *)(hashTable.list[7].head->data);
-  TEST_ASSERT_EQUAL(5,data->key);
-  TEST_ASSERT_EQUAL_STRING("David",data->name);
-  free(data);*/
 }

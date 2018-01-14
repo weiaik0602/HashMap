@@ -2,19 +2,19 @@
 
 
 
-void hashMapAddInteger(HashTable *table,char *data,int key){
-//  int hashValue=hashUsingModulo(key,table->size);
-//  _hashMapAdd(table,(void *)data,hashValue,(Compare)integerCompare);
+void hashMapAddString(HashTable *table,char *str,int key){
+  int index=hashUsingModulo(key,table->size);
+  Data *data=dataCreate(key,str);
+  _hashMapAdd(table,data,key,index,(Compare)CompareKey);
 }
 
-void hashMapSearchInteger(HashTable *table,char *data,int key){
-//  int hashValue=hashUsingModulo(key,table->size);
-//  _hashMapSearch(table,(void *)data,hashValue,(Compare)integerCompare);
+void *hashMapSearchString(HashTable *table,int key){
+  int index=hashUsingModulo(key,table->size);
+  return _hashMapSearch(table,key,index,(Compare)CompareKey);
 }
 
 
-void hashMapRemoveInteger(HashTable *table,char *data,int key){
-//  int hashValue=hashUsingModulo(key,table->size);
-  // _hashMapRemove(table,(void *)data,hashValue,(Compare)integerCompare);
-
+void hashMapRemoveString(HashTable *table,int key){
+  int index=hashUsingModulo(key,table->size);
+  _hashMapRemove(table,key,index,(Compare)CompareKey);
 }
